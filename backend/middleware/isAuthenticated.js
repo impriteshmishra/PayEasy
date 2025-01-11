@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-const isAuthenticated = async (req,resizeBy,next)=>{
+const isAuthenticated = async (req,res,next)=>{
   const authHeader = req.headers.authorization;
   if(!authHeader || !authHeader.startsWith('Bearer')){
     return resizeBy.status(401).json({});

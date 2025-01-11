@@ -1,5 +1,4 @@
 
-
 export const validate = (schema) => async (req, res, next) => {  //the schema is passing in the function is zod schema. must remeber this
     try {
         const parseBody = await schema.parseAsync(req.body); // req.body is from client side
@@ -11,4 +10,3 @@ export const validate = (schema) => async (req, res, next) => {  //the schema is
     }
 }
 
-// module.exports = validate;

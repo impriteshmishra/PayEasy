@@ -1,5 +1,5 @@
 import { User } from "../models/User.Model.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken';
 
 
@@ -119,4 +119,47 @@ export const logout = async (_, res)=>{
 }
 
 
-//
+//update profile 
+
+export const updateProfile = async (req,res)=>{
+    const {success} = req.body();
+    if(!success){
+        res.status(411).json({
+            message:"Error while updating."
+        })
+    }
+    await User.updateOne(req.body,{
+        id:req.userId
+    });
+    res.json({
+        message:"Updated scccessfully"
+    })
+}
+
+// filtering user
+export const filterUser = async (req,res)=>{
+    const filter = req.query.filter || "";
+
+    const users = await User.find({
+        $or: [
+            {
+                filterName: {
+                    "$regex":filter
+                }
+            },
+            {
+                lastName:{
+                    "$regex":filter
+                }
+            }
+        ]
+    })
+    res.json({
+        user:users.map(user=>({
+            username:user.username,
+            firstName:user.firstName,
+            lastName:user.lastName,
+            _id:user._id
+        }))
+    })
+}
