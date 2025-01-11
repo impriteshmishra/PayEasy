@@ -1,8 +1,12 @@
 import express from 'express';
-
+import {validator} from "../validators/validator.js";
+import {validate} from '../middleware/validator.js';
+import { register, login, logout } from '../controllers/user.controller.js';
 const router = express.Router();
 
-router.route('/register').post(register);
+
+
+router.route('/register').post(validate(validator), register);
 router.route('/login').post(login);
 router.route('/logout').get(logout);
 

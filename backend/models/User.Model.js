@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     trim: true, // Ensures field doesn't have unnecessary spaces
-    lowercase: true,
     minLength: 5,
     maxLength: 10
   },
@@ -51,3 +50,4 @@ const userSchema = new mongoose.Schema({
 })
 
 export const User = mongoose.model('User', userSchema);
+// in future phone number is implement and otp verification
